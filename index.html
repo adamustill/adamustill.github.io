@@ -3,93 +3,248 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#080f17">
-  <meta name="description" content="Adamus Systems – Anwendungen und Downloads.">
-  <title>Adamus Systems | Anwendungen</title>
+  <meta name="theme-color" content="#050d16">
+  <meta name="description" content="Adamus Systems – Plattformzugang und SFVP Downloads.">
+  <title>Adamus Systems | Application Platform</title>
   <link rel="icon" type="image/png" href="assets/logo.png">
   <style>
     :root {
       color-scheme: dark;
-      --bg: #080f17;
-      --surface: #111c27;
-      --surface-alt: #152330;
-      --border: #263b4b;
-      --text: #f2f7fc;
-      --muted: #9aafc2;
-      --blue: #58a6eb;
-      --cyan: #79cbf5;
+      --bg: #030b14;
+      --surface: #071827;
+      --text: #f2f7ff;
+      --muted: #adc6de;
+      --secondary: #7fabc9;
+      --border: #2a5675;
+      --cyan: #5abbff;
     }
     *, *::before, *::after { box-sizing: border-box; }
     html { min-height: 100%; }
     body {
-      margin: 0; min-height: 100vh;
-      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: var(--bg); color: var(--text); overflow-x: hidden;
+      margin: 0;
+      min-width: 320px;
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--text);
+      background: var(--bg);
+      font-family: Inter, "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-font-smoothing: antialiased;
     }
-    body::before {
-      content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none;
-      background: radial-gradient(ellipse 56% 42% at 52% 28%, #113657 0%, #0a1d30 42%, transparent 100%),
-                  radial-gradient(ellipse 54% 55% at 100% 100%, #10263b 0%, transparent 90%),
-                  #080f17;
+    /* Background is ornamental CSS/SVG – no external data sources or tracking. */
+    .backdrop {
+      position: absolute;
+      z-index: -1;
+      pointer-events: none;
+      width: 100%;
+      min-height: 100vh;
+      inset: 0 0 auto;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse 64% 36% at 51% 36%, rgba(16, 75, 121, .33), transparent 78%),
+        radial-gradient(ellipse 40% 45% at 0% 68%, rgba(8, 69, 111, .21), transparent 88%),
+        radial-gradient(ellipse 43% 45% at 100% 66%, rgba(11, 59, 106, .24), transparent 91%),
+        linear-gradient(180deg, #020a13 0%, #061524 54%, #020a13 100%);
     }
-    body::after {
-      content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: .46;
-      background-image: linear-gradient(#7aaed012 1px, transparent 1px),
-                        linear-gradient(90deg, #7aaed012 1px, transparent 1px);
-      background-size: 84px 84px;
-      -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 36%, transparent 95%);
-      mask-image: linear-gradient(to bottom, transparent 0, #000 36%, transparent 95%);
+    .backdrop::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: .23;
+      background-image: linear-gradient(rgba(89, 148, 198, .09) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(89, 148, 198, .09) 1px, transparent 1px);
+      background-size: 100px 100px;
+      -webkit-mask-image: linear-gradient(to bottom, transparent 8%, #000 33%, transparent 89%);
+      mask-image: linear-gradient(to bottom, transparent 8%, #000 33%, transparent 89%);
     }
-    a { color: inherit; }
-    .shell { max-width: 1160px; margin: 0 auto; padding: 0 32px; }
-    header { border-bottom: 1px solid #55708325; background: #09121c77; }
-    .header-inner { min-height: 84px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-    .brand { text-decoration: none; display: inline-flex; align-items: center; gap: 13px; letter-spacing: .15em; font-weight: 740; font-size: .88rem; }
-    .brand img { width: 48px; height: 48px; object-fit: contain; }
-    .top-tag { border: 1px solid #40546b80; background: #15212d9c; border-radius: 100px; color: #a5bed2; padding: 9px 13px; font-size: .76rem; letter-spacing: .03em; }
-    main { padding-top: clamp(56px, 9vw, 108px); padding-bottom: 110px; }
-    .eyebrow { display: flex; align-items: center; gap: 10px; color: #7dbcec; text-transform: uppercase; font-size: .73rem; letter-spacing: .25em; font-weight: 720; }
-    .eyebrow::before { content: ""; width: 24px; height: 1px; background: #7dbcec; }
-    h1 { margin: 20px 0 12px; font-size: clamp(2.2rem, 5.6vw, 4.5rem); line-height: 1.08; letter-spacing: -.047em; max-width: 790px; font-weight: 690; }
-    h1 span { color: #8ebfdf; }
-    .lede { max-width: 630px; color: #9fb4c6; line-height: 1.65; font-size: 1rem; margin: 0 0 48px; }
-    .section-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; gap: 18px; }
-    .section-head h2 { font-size: .8rem; letter-spacing: .13em; color: #a6b9c8; font-weight: 650; text-transform: uppercase; margin: 0; }
-    .section-head span { font-size: .77rem; color: #718ba1; }
-    .cards { display: grid; grid-template-columns: 1.25fr 1fr; gap: 20px; }
-    .card { position: relative; overflow: hidden; border: 1px solid #334d60; background: linear-gradient(140deg, #162534ea, #0e1924f7); border-radius: 20px; padding: 28px; min-height: 320px; display: flex; flex-direction: column; }
-    .card.primary { border-color: #416987; box-shadow: 0 14px 58px #02070d60, inset 0 1px #ffffff08; }
-    .card.primary::after { content: ""; position: absolute; pointer-events: none; height: 230px; width: 310px; border-radius: 100%; top: -175px; right: -100px; background: #287ebe36; filter: blur(45px); }
-    .iconbox { background: #254963; border: 1px solid #3f708c; height: 48px; width: 48px; display: grid; place-items: center; border-radius: 13px; color: #b6e3ff; }
-    .iconbox svg { width: 24px; height: 24px; }
-    .card-header { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
-    .pill { font-size: .69rem; line-height: 1; padding: 9px 10px; border-radius: 100px; border: 1px solid #426c7f; color: #88d9b9; white-space: nowrap; background: #2351412c; }
-    .pill.soon { color: #a2b3c2; background: #62798b16; border-color: #546b7d; }
-    .card h3 { margin: 27px 0 8px; letter-spacing: -.028em; font-size: 1.43rem; font-weight: 675; }
-    .card p { margin: 0; color: #a4b8c9; line-height: 1.6; font-size: .9rem; }
-    .grow { flex: 1; min-height: 24px; }
-    .meta { color: #92b0c5; font-size: .79rem; margin: 0 0 15px; min-height: 20px; }
-    .meta strong { color: #eaf4fa; font-weight: 650; }
-    .button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 50px; padding: 13px 18px; border: 1px solid #4e8fb8; background: linear-gradient(180deg, #316c96, #245777); border-radius: 12px; text-decoration: none; font-weight: 650; font-size: .9rem; transition: background .18s, transform .18s, border-color .18s; }
-    .button:hover { border-color: #95cceb; background: linear-gradient(180deg, #3b80b2, #286486); transform: translateY(-1px); }
-    .button svg { width: 18px; height: 18px; }
-    .button.disabled { color: #7f9aac; cursor: not-allowed; pointer-events: none; background: #23303c; border-color: #314352; }
-    .underlink { color: #87b8db; text-decoration: none; font-size: .8rem; display: inline-block; margin-top: 16px; }
-    .underlink:hover { text-decoration: underline; }
-    .bottom-note { margin-top: 27px; font-size: .77rem; color: #7f98ab; line-height: 1.6; }
-    footer { border-top: 1px solid #33485852; color: #8199aa; font-size: .78rem; padding: 21px 0 25px; }
-    .footer-inner { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-    @media (max-width: 720px) {
-      .shell { padding: 0 20px; }
-      .header-inner { min-height: 72px; }
-      .brand { font-size: .74rem; gap: 8px; }
-      .brand img { width: 42px; height: 42px; }
-      .top-tag { font-size: .68rem; padding: 8px; }
-      .cards { grid-template-columns: 1fr; }
-      .card { min-height: 290px; padding: 22px; }
-      .section-head span { display: none; }
-      .lede { margin-bottom: 36px; }
-      main { padding-bottom: 70px; }
+    .horizon {
+      position: absolute;
+      top: 72px;
+      left: 50%;
+      width: max(1440px, 100%);
+      height: 510px;
+      transform: translateX(-50%);
+      opacity: .8;
+    }
+    .slant {
+      position: absolute;
+      height: 285px;
+      width: 225px;
+      pointer-events: none;
+      opacity: .75;
+      transform: skewX(-43deg);
+      border-left: 1px solid rgba(56, 146, 211, .35);
+    }
+    .slant.left { top: 78px; left: 42px; box-shadow: -28px 0 0 -27px rgba(78, 167, 229, .75), -65px 0 0 -64px rgba(78,167,229,.4); }
+    .slant.right { bottom: 25px; right: 40px; height: 230px; transform: skewX(-43deg) rotate(180deg); }
+    .page-shell { width: min(1280px, calc(100% - 76px)); margin-inline: auto; }
+    header {
+      height: 90px;
+      position: relative;
+      z-index: 1;
+      border-bottom: 1px solid rgba(76, 156, 209, .42);
+    }
+    header::after {
+      content: "";
+      position: absolute;
+      height: 1px;
+      width: min(32%, 480px);
+      left: 0;
+      bottom: -1px;
+      background: linear-gradient(90deg, transparent, #55c4ff);
+      opacity: .85;
+    }
+    .header-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .brand { display: inline-flex; align-items: center; gap: 15px; color: #f5f8fd; text-decoration: none; }
+    .brand img { width: 62px; height: 58px; object-fit: contain; }
+    .brand span { font-size: clamp(.78rem, 1.2vw, 1.16rem); letter-spacing: .27em; font-weight: 690; white-space: nowrap; }
+    .login {
+      font: inherit;
+      color: #d6e5f4;
+      display: inline-flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #416988;
+      background: rgba(5, 17, 29, .6);
+      border-radius: 13px;
+      min-width: 163px;
+      padding: 13px 20px;
+      font-size: .91rem;
+      font-weight: 590;
+    }
+    .login svg { width: 19px; height: 19px; }
+    .login:disabled { cursor: not-allowed; }
+    main { padding-top: 23px; padding-bottom: 74px; }
+    .hero { text-align: center; position: relative; min-height: 292px; }
+    .hero-logo { display: block; width: 133px; height: 138px; object-fit: contain; margin: 0 auto 9px; filter: drop-shadow(0 7px 30px rgba(40, 135, 234, .13)); }
+    h1 { font-size: clamp(1.8rem, 4.0vw, 2.95rem); letter-spacing: .32em; text-indent: .32em; font-weight: 530; line-height: 1.16; margin: 0; }
+    .hero-subtitle {
+      margin: 20px auto 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 25px;
+      color: #9ac6e7;
+      text-transform: uppercase;
+      font-size: .92rem;
+      letter-spacing: .35em;
+      text-indent: .35em;
+      white-space: nowrap;
+    }
+    .hero-subtitle::before, .hero-subtitle::after { content: ""; width: 96px; height: 1px; background: linear-gradient(90deg, transparent, #4a95c8); }
+    .hero-subtitle::after { transform: rotate(180deg); }
+    .cards { display: grid; grid-template-columns: 1.1fr .96fr; gap: 34px; align-items: stretch; }
+    .card {
+      position: relative;
+      border-radius: 21px;
+      border: 1px solid #325b7b;
+      background: linear-gradient(144deg, rgba(13, 38, 59, .91), rgba(3, 14, 25, .96) 74%);
+      min-height: 365px;
+      padding: 31px 37px 27px;
+      box-shadow: inset 0 1px 0 rgba(173, 214, 255, .09), 0 24px 85px rgba(0, 0, 0, .24);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .card.primary {
+      border-color: #3693d0;
+      box-shadow: 0 0 21px rgba(25, 140, 223, .15), inset 0 0 34px rgba(41, 113, 173, .07), inset 0 1px 0 rgba(156, 218, 255, .16);
+    }
+    .card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent 10%, rgba(117, 197, 254, .7) 50%, transparent 92%); opacity: .55; pointer-events: none; }
+    .card::after {
+      content: "";
+      position: absolute;
+      right: -1px;
+      bottom: -1px;
+      width: 86px;
+      height: 35px;
+      pointer-events: none;
+      background: repeating-linear-gradient(132deg, transparent 0 8px, rgba(46, 132, 192, .91) 8px 16px, transparent 16px 22px);
+      clip-path: polygon(43% 0, 100% 0, 100% 100%, 0 100%);
+      opacity: .82;
+    }
+    .card-head { display: flex; justify-content: space-between; align-items: start; gap: 14px; }
+    .product-heading { display: flex; gap: 22px; align-items: center; min-width: 0; }
+    .app-icon { display: grid; place-items: center; flex: 0 0 76px; height: 76px; border-radius: 19px; background: linear-gradient(135deg, rgba(34, 100, 145, .66), rgba(11, 45, 74, .77)); border: 1px solid #2a779e; box-shadow: inset 0 1px 0 #a1d6f626; }
+    .app-icon svg { width: 35px; height: 35px; stroke: #d9f2ff; }
+    .product-name { margin: 0 0 5px; font-size: clamp(1.27rem, 1.7vw, 1.72rem); font-weight: 680; letter-spacing: -.025em; }
+    .product-type { margin: 0; color: #b8d0e3; font-size: .91rem; }
+    .status { flex-shrink: 0; border: 1px solid #477c9e; border-radius: 30px; font-size: .78rem; padding: 8px 12px; background: rgba(9, 25, 37, .57); color: #b8d2e3; white-space: nowrap; }
+    .status.available { border-color: #277b57; color: #86ebb1; background: rgba(15, 52, 39, .29); }
+    .description { color: #b4cde0; font-size: .98rem; line-height: 1.65; max-width: 450px; margin: 22px 0 16px; }
+    .grow { flex: 1; min-height: 9px; }
+    .release-info { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 21px; color: #d0deeb; font-size: .82rem; padding-bottom: 17px; }
+    .release-info span { display: inline-flex; gap: 9px; align-items: center; }
+    .release-info span + span { border-left: 1px solid #3e657b; padding-left: 20px; }
+    .release-info svg { width: 17px; height: 17px; stroke: #91c1dd; flex-shrink: 0; }
+    .button {
+      width: 100%; min-height: 54px;
+      border-radius: 11px;
+      color: #edf8ff; text-decoration: none;
+      background: linear-gradient(180deg, #318dc8, #17619e 95%);
+      border: 1px solid #56c0ff;
+      box-shadow: inset 0 1px 0 #c1eeff55, 0 0 18px #218ddd25;
+      font-size: .96rem; font-weight: 680;
+      display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+      padding: 12px 15px;
+      transition: background .2s ease, box-shadow .2s ease, transform .2s ease;
+    }
+    .button svg { width: 20px; height: 20px; }
+    .button:hover { background: linear-gradient(180deg, #48a3dd, #2277b5); box-shadow: 0 0 27px rgba(65, 178, 240, .29); transform: translateY(-1px); }
+    .button:focus-visible, .underlink:focus-visible, .brand:focus-visible { outline: 2px solid #97dfff; outline-offset: 4px; }
+    .underlink { align-self: flex-start; text-decoration: none; color: #a7c8df; font-size: .84rem; display: inline-flex; gap: 10px; align-items: center; padding-top: 20px; }
+    .underlink:hover { color: #e7f7ff; text-decoration: underline; }
+    .underlink svg { width: 17px; height: 17px; }
+    .card.mobile .description { margin-top: 24px; max-width: 430px; }
+    .card.mobile .button { background: linear-gradient(180deg, #16324b, #12283c); border-color: #3b617c; color: #90adc2; box-shadow: none; }
+    .card.mobile .button:disabled { cursor: not-allowed; }
+    .mobile-note { padding-top: 14px; color: #7c9bb3; font-size: .78rem; text-align: center; }
+    .foot { border-top: 1px solid rgba(73, 124, 163, .35); padding: 22px 0 27px; font-size: .75rem; color: #91aec5; }
+    .foot-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; }
+    .foot-right { text-transform: uppercase; letter-spacing: .09em; }
+    @media (max-width: 1060px) {
+      .page-shell { width: min(100% - 48px, 900px); }
+      .cards { gap: 18px; grid-template-columns: 1fr 1fr; }
+      .card { padding: 24px; }
+      .product-heading { gap: 14px; }
+      .app-icon { flex-basis: 58px; height: 58px; border-radius: 13px; }
+      .app-icon svg { width: 28px; height: 28px; }
+      .card-head { flex-wrap: wrap; }
+      .status { margin-left: auto; }
+      .release-info { gap: 8px 13px; }
+      .release-info span + span { padding-left: 13px; }
+    }
+    @media (max-width: 740px) {
+      header { height: 76px; }
+      .page-shell { width: min(100% - 36px, 530px); }
+      .brand img { height: 47px; width: 49px; }
+      .brand span { font-size: .75rem; letter-spacing: .15em; }
+      .login { min-width: 0; padding: 10px 12px; font-size: .8rem; gap: 7px; }
+      .login svg { width: 16px; height: 16px; }
+      main { padding-top: 30px; padding-bottom: 65px; }
+      .hero { min-height: 236px; }
+      .hero-logo { width: 91px; height: 94px; }
+      h1 { font-size: clamp(1.15rem, 5vw, 1.85rem); letter-spacing: .18em; text-indent: .18em; }
+      .hero-subtitle { gap: 10px; font-size: .68rem; letter-spacing: .19em; margin-top: 15px; text-indent: .19em; }
+      .hero-subtitle::before, .hero-subtitle::after { width: 32px; }
+      .cards { grid-template-columns: 1fr; gap: 18px; }
+      .card { min-height: 330px; padding: 24px 22px; }
+      .card.mobile { min-height: 300px; }
+      .product-heading { flex-wrap: nowrap; gap: 13px; }
+      .product-name { font-size: 1.28rem; }
+      .product-type { font-size: .77rem; }
+      .card-head { flex-wrap: wrap; }
+      .card-head .status { margin-left: auto; }
+      .description { margin-top: 19px; font-size: .87rem; }
+      .foot-inner { align-items: flex-start; flex-direction: column; }
+      .slant { opacity: .26; }
+      .horizon { top: 80px; }
+    }
+    @media (max-width: 380px) {
+      .brand span { font-size: .66rem; }
+      .login { font-size: .72rem; }
+      .release-info span + span { border-left: 0; padding-left: 0; }
+      .release-info { column-gap: 12px; }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { transition-duration: 0s !important; animation-duration: 0s !important; }
@@ -97,54 +252,72 @@
   </style>
 </head>
 <body>
+  <div class="backdrop" aria-hidden="true">
+    <svg class="horizon" viewBox="0 0 1600 510" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg">
+      <defs><filter id="arc-glow" x="-20%" y="-200%" width="140%" height="500%"><feGaussianBlur stdDeviation="7"/></filter></defs>
+      <path d="M-120,432 C300,-110 1260,-125 1720,432" fill="none" stroke="#239ee9" stroke-width="4" opacity=".62" filter="url(#arc-glow)"/>
+      <path d="M-120,432 C300,-110 1260,-125 1720,432" fill="none" stroke="#6acbff" stroke-width="1.35" opacity=".62"/>
+    </svg>
+    <div class="slant left"></div><div class="slant right"></div>
+  </div>
   <header>
-    <div class="shell header-inner">
-      <a class="brand" href="./" aria-label="Adamus Systems Startseite">
-        <img src="assets/logo.png" alt="" width="48" height="48">
+    <div class="page-shell header-inner">
+      <a class="brand" href="/" aria-label="Adamus Systems – Startseite">
+        <img src="assets/logo.png" alt="" width="62" height="58">
         <span>ADAMUS SYSTEMS</span>
       </a>
-      <span class="top-tag">APPLICATION PLATFORM</span>
+      <button class="login" type="button" disabled title="Mitarbeiteranmeldung folgt mit SFVP Mobile">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7.5" r="3.5"/><path d="M4.5 20v-2a7.5 7.5 0 0 1 15 0v2z"/></svg>
+        Anmelden
+      </button>
     </div>
   </header>
-  <main class="shell">
-    <div class="eyebrow">Platform</div>
-    <h1>Deine Anwendungen.<br><span>Ein zentraler Zugang.</span></h1>
-    <p class="lede">Anwendungen herunterladen und auf die verfügbaren Module zugreifen. Neue Versionen von SFVP werden automatisch über GitHub Releases bereitgestellt.</p>
-    <div class="section-head"><h2>Anwendungen</h2><span>Adamus Systems / SFVP</span></div>
-    <div class="cards">
-      <section class="card primary" aria-labelledby="desktop-title">
-        <div class="card-header">
-          <div class="iconbox" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
-          <span class="pill">Verfügbar</span>
+  <main class="page-shell">
+    <section class="hero" aria-label="Adamus Systems Application Platform">
+      <img class="hero-logo" src="assets/logo.png" alt="Adamus Systems Logo" width="133" height="138">
+      <h1>ADAMUS SYSTEMS</h1>
+      <p class="hero-subtitle">Application Platform</p>
+    </section>
+    <section class="cards" aria-label="Anwendungen">
+      <article class="card primary" aria-labelledby="desktop-title">
+        <div class="card-head">
+          <div class="product-heading">
+            <div class="app-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4" width="19" height="13" rx="1.5"/><path d="M8 21h8M12 17v4"/></svg></div>
+            <div><h2 class="product-name" id="desktop-title">SFVP Desktop</h2><p class="product-type">Lagerplatz- und Auftragsverwaltung</p></div>
+          </div>
+          <span class="status available">Verfügbar</span>
         </div>
-        <h3 id="desktop-title">SFVP Desktop</h3>
-        <p>Lagerplatz- und Auftragsverwaltung als portable Windows-Anwendung.</p>
+        <p class="description">Zentrale Anwendung für die Planung, Verwaltung und Steuerung von Aufträgen und Lagerflächen.</p>
         <div class="grow"></div>
-        <div class="meta" id="release-meta" role="status" aria-live="polite">Suche nach der aktuellen Version …</div>
+        <div class="release-info" id="release-meta" role="status" aria-live="polite"><span>Aktuelle Version wird geladen …</span></div>
         <a id="download-button" class="button" href="https://github.com/adamustill/sfvp-update-test/releases" rel="noopener noreferrer">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M4 17v3h16v-3"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M4 17v3h16v-3"/></svg>
           <span id="download-label">GitHub Releases öffnen</span>
         </a>
-        <a class="underlink" id="release-details" href="https://github.com/adamustill/sfvp-update-test/releases" rel="noopener noreferrer">Alle Versionen auf GitHub ansehen ↗</a>
-      </section>
-      <section class="card" aria-labelledby="mobile-title">
-        <div class="card-header">
-          <div class="iconbox" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg></div>
-          <span class="pill soon">In Vorbereitung</span>
+        <a class="underlink" id="release-details" href="https://github.com/adamustill/sfvp-update-test/releases" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.8a10.2 10.2 0 0 0-3.22 19.88c.51.09.7-.22.7-.49v-1.9c-2.85.62-3.45-1.21-3.45-1.21-.47-1.2-1.15-1.52-1.15-1.52-.93-.64.07-.63.07-.63 1.03.08 1.57 1.06 1.57 1.06.92 1.57 2.4 1.12 2.98.86.09-.66.36-1.12.65-1.37-2.27-.26-4.65-1.14-4.65-5.05 0-1.12.4-2.04 1.06-2.76-.11-.26-.46-1.31.1-2.72 0 0 .86-.28 2.8 1.05A9.6 9.6 0 0 1 12 6.02c.86 0 1.72.12 2.53.35 1.94-1.33 2.8-1.05 2.8-1.05.56 1.41.21 2.46.1 2.72a3.94 3.94 0 0 1 1.06 2.76c0 3.92-2.38 4.78-4.66 5.04.37.32.69.94.69 1.9v2.8c0 .27.18.59.7.49A10.2 10.2 0 0 0 12 1.8Z"/></svg>
+          Alle Versionen auf GitHub ansehen ↗
+        </a>
+      </article>
+      <article class="card mobile" aria-labelledby="mobile-title">
+        <div class="card-head">
+          <div class="product-heading">
+            <div class="app-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="6.5" y="2" width="11" height="20" rx="1.6"/><path d="M11 18.5h2"/></svg></div>
+            <div><h2 class="product-name" id="mobile-title">SFVP Mobile</h2><p class="product-type">Mitarbeiterzugang &amp; Kommissionierung</p></div>
+          </div>
+          <span class="status">In Entwicklung</span>
         </div>
-        <h3 id="mobile-title">SFVP Mobile</h3>
-        <p>Zukünftiger Mitarbeiterzugang mit persönlichen Aufträgen, Lagerplätzen und Fortschrittsmeldungen.</p>
+        <p class="description">Mobiler Zugriff auf Aufträge, Lagerplätze und Kommissionierungsprozesse.</p>
         <div class="grow"></div>
-        <div class="meta">Login und Live-Synchronisierung folgen später.</div>
-        <span class="button disabled" aria-disabled="true">Noch nicht verfügbar</span>
-      </section>
-    </div>
-    <p class="bottom-note">Der Download führt zu einem öffentlichen GitHub Release. Diese Website erfasst keine Auftrags- oder Mitarbeiterdaten und bietet derzeit keine Anmeldung.</p>
+        <button class="button" type="button" disabled aria-disabled="true" title="Diese Funktion steht noch nicht zur Verfügung">Benachrichtigen, wenn verfügbar</button>
+        <div class="mobile-note">Anmeldung und Benachrichtigungen folgen mit SFVP Mobile.</div>
+      </article>
+    </section>
   </main>
-  <footer><div class="shell footer-inner"><span>© <span id="year"></span> Adamus Systems</span><span>APPLICATION PLATFORM · SFVP</span></div></footer>
+  <footer class="foot"><div class="page-shell foot-inner"><span>© <span id="year">2026</span> Adamus Systems</span><span class="foot-right">SFVP · Application Platform</span></div></footer>
   <script>
     'use strict';
-    // Nur öffentliche Release-Metadaten abrufen. Keine Zugangsschlüssel im Browser hinterlegen.
+    // Public GitHub Release metadata only; never store tokens in static website code.
     const RELEASES = 'https://github.com/adamustill/sfvp-update-test/releases';
     const ENDPOINT = 'https://api.github.com/repos/adamustill/sfvp-update-test/releases/latest';
     const meta = document.getElementById('release-meta');
@@ -156,45 +329,43 @@
     function fallback(message) {
       meta.textContent = message;
       button.href = RELEASES;
+      button.removeAttribute('aria-label');
       label.textContent = 'GitHub Releases öffnen';
     }
 
     async function loadLatestRelease() {
       try {
-        const response = await fetch(ENDPOINT, {
-          headers: { 'Accept': 'application/vnd.github+json' }
-        });
+        const response = await fetch(ENDPOINT, { headers: { 'Accept': 'application/vnd.github+json' } });
         if (!response.ok) throw new Error('GitHub API ' + response.status);
         const release = await response.json();
         if (!release || !Array.isArray(release.assets)) throw new Error('Ungültige Release-Daten');
 
         const exeFiles = release.assets.filter(asset =>
-          typeof asset.name === 'string' &&
-          /\.exe$/i.test(asset.name) &&
+          typeof asset.name === 'string' && /\.exe$/i.test(asset.name) &&
           typeof asset.browser_download_url === 'string' &&
           asset.browser_download_url.startsWith('https://github.com/adamustill/sfvp-update-test/releases/download/')
         );
         const portableFiles = exeFiles.filter(asset => /portable/i.test(asset.name));
-        // Bei mehreren EXEs ohne eindeutige Portable-Zuordnung nichts raten.
-        const selected = portableFiles.length === 1 ? portableFiles[0] :
-          (exeFiles.length === 1 ? exeFiles[0] : null);
+        const selected = portableFiles.length === 1 ? portableFiles[0] : (exeFiles.length === 1 ? exeFiles[0] : null);
 
         const version = release.tag_name ? String(release.tag_name) : 'Aktuelles Release';
         const date = release.published_at ? new Date(release.published_at) : null;
-        const dateLabel = date && !Number.isNaN(date.valueOf()) ?
-          ' · ' + new Intl.DateTimeFormat('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' }).format(date) : '';
-        const releaseUrl = typeof release.html_url === 'string' &&
-          release.html_url.startsWith('https://github.com/adamustill/sfvp-update-test/releases/') ?
-          release.html_url : RELEASES;
+        const dateLabel = date && !Number.isNaN(date.valueOf()) ? new Intl.DateTimeFormat('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' }).format(date) : '';
+        const releaseUrl = typeof release.html_url === 'string' && release.html_url.startsWith('https://github.com/adamustill/sfvp-update-test/releases/') ? release.html_url : RELEASES;
         details.href = releaseUrl;
-
-        if (!selected) {
-          fallback('Version ' + version + dateLabel + ' · Download auf GitHub auswählen');
-          return;
+        if (!selected) { fallback('Version ' + version + (dateLabel ? ' · ' + dateLabel : '') + ' · Download auf GitHub auswählen'); return; }
+        const sizeLabel = Number.isFinite(selected.size) && selected.size > 0 ? (selected.size / 1048576).toLocaleString('de-DE', { maximumFractionDigits: 1 }) + ' MB' : '';
+        const icon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3h16v18H4zM8 3v18M4 9h16"/></svg>';
+        const calendar = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4m8-4v4M3 10h18"/></svg>';
+        const disk = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>';
+        meta.replaceChildren();
+        for (const entry of [[icon, version], [calendar, dateLabel], [disk, sizeLabel]]) {
+          if (!entry[1]) continue;
+          const part = document.createElement('span');
+          part.innerHTML = entry[0]; // Fixed local SVG icons, never GitHub-supplied markup.
+          part.append(document.createTextNode(entry[1]));
+          meta.append(part);
         }
-        const sizeLabel = Number.isFinite(selected.size) && selected.size > 0 ?
-          ' · ' + (selected.size / 1048576).toLocaleString('de-DE', { maximumFractionDigits: 1 }) + ' MB' : '';
-        meta.textContent = 'Version ' + version + dateLabel + sizeLabel;
         button.href = selected.browser_download_url;
         button.setAttribute('aria-label', selected.name + ' herunterladen');
         label.textContent = 'SFVP Portable herunterladen';
