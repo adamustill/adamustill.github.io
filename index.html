@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080f17">
+  <meta name="description" content="Adamus Systems – Anwendungen und Downloads.">
+  <title>Adamus Systems | Anwendungen</title>
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #080f17;
+      --surface: #111c27;
+      --surface-alt: #152330;
+      --border: #263b4b;
+      --text: #f2f7fc;
+      --muted: #9aafc2;
+      --blue: #58a6eb;
+      --cyan: #79cbf5;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { min-height: 100%; }
+    body {
+      margin: 0; min-height: 100vh;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg); color: var(--text); overflow-x: hidden;
+    }
+    body::before {
+      content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none;
+      background: radial-gradient(ellipse 56% 42% at 52% 28%, #113657 0%, #0a1d30 42%, transparent 100%),
+                  radial-gradient(ellipse 54% 55% at 100% 100%, #10263b 0%, transparent 90%),
+                  #080f17;
+    }
+    body::after {
+      content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: .46;
+      background-image: linear-gradient(#7aaed012 1px, transparent 1px),
+                        linear-gradient(90deg, #7aaed012 1px, transparent 1px);
+      background-size: 84px 84px;
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 36%, transparent 95%);
+      mask-image: linear-gradient(to bottom, transparent 0, #000 36%, transparent 95%);
+    }
+    a { color: inherit; }
+    .shell { max-width: 1160px; margin: 0 auto; padding: 0 32px; }
+    header { border-bottom: 1px solid #55708325; background: #09121c77; }
+    .header-inner { min-height: 84px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { text-decoration: none; display: inline-flex; align-items: center; gap: 13px; letter-spacing: .15em; font-weight: 740; font-size: .88rem; }
+    .brand img { width: 48px; height: 48px; object-fit: contain; }
+    .top-tag { border: 1px solid #40546b80; background: #15212d9c; border-radius: 100px; color: #a5bed2; padding: 9px 13px; font-size: .76rem; letter-spacing: .03em; }
+    main { padding-top: clamp(56px, 9vw, 108px); padding-bottom: 110px; }
+    .eyebrow { display: flex; align-items: center; gap: 10px; color: #7dbcec; text-transform: uppercase; font-size: .73rem; letter-spacing: .25em; font-weight: 720; }
+    .eyebrow::before { content: ""; width: 24px; height: 1px; background: #7dbcec; }
+    h1 { margin: 20px 0 12px; font-size: clamp(2.2rem, 5.6vw, 4.5rem); line-height: 1.08; letter-spacing: -.047em; max-width: 790px; font-weight: 690; }
+    h1 span { color: #8ebfdf; }
+    .lede { max-width: 630px; color: #9fb4c6; line-height: 1.65; font-size: 1rem; margin: 0 0 48px; }
+    .section-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; gap: 18px; }
+    .section-head h2 { font-size: .8rem; letter-spacing: .13em; color: #a6b9c8; font-weight: 650; text-transform: uppercase; margin: 0; }
+    .section-head span { font-size: .77rem; color: #718ba1; }
+    .cards { display: grid; grid-template-columns: 1.25fr 1fr; gap: 20px; }
+    .card { position: relative; overflow: hidden; border: 1px solid #334d60; background: linear-gradient(140deg, #162534ea, #0e1924f7); border-radius: 20px; padding: 28px; min-height: 320px; display: flex; flex-direction: column; }
+    .card.primary { border-color: #416987; box-shadow: 0 14px 58px #02070d60, inset 0 1px #ffffff08; }
+    .card.primary::after { content: ""; position: absolute; pointer-events: none; height: 230px; width: 310px; border-radius: 100%; top: -175px; right: -100px; background: #287ebe36; filter: blur(45px); }
+    .iconbox { background: #254963; border: 1px solid #3f708c; height: 48px; width: 48px; display: grid; place-items: center; border-radius: 13px; color: #b6e3ff; }
+    .iconbox svg { width: 24px; height: 24px; }
+    .card-header { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
+    .pill { font-size: .69rem; line-height: 1; padding: 9px 10px; border-radius: 100px; border: 1px solid #426c7f; color: #88d9b9; white-space: nowrap; background: #2351412c; }
+    .pill.soon { color: #a2b3c2; background: #62798b16; border-color: #546b7d; }
+    .card h3 { margin: 27px 0 8px; letter-spacing: -.028em; font-size: 1.43rem; font-weight: 675; }
+    .card p { margin: 0; color: #a4b8c9; line-height: 1.6; font-size: .9rem; }
+    .grow { flex: 1; min-height: 24px; }
+    .meta { color: #92b0c5; font-size: .79rem; margin: 0 0 15px; min-height: 20px; }
+    .meta strong { color: #eaf4fa; font-weight: 650; }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 50px; padding: 13px 18px; border: 1px solid #4e8fb8; background: linear-gradient(180deg, #316c96, #245777); border-radius: 12px; text-decoration: none; font-weight: 650; font-size: .9rem; transition: background .18s, transform .18s, border-color .18s; }
+    .button:hover { border-color: #95cceb; background: linear-gradient(180deg, #3b80b2, #286486); transform: translateY(-1px); }
+    .button svg { width: 18px; height: 18px; }
+    .button.disabled { color: #7f9aac; cursor: not-allowed; pointer-events: none; background: #23303c; border-color: #314352; }
+    .underlink { color: #87b8db; text-decoration: none; font-size: .8rem; display: inline-block; margin-top: 16px; }
+    .underlink:hover { text-decoration: underline; }
+    .bottom-note { margin-top: 27px; font-size: .77rem; color: #7f98ab; line-height: 1.6; }
+    footer { border-top: 1px solid #33485852; color: #8199aa; font-size: .78rem; padding: 21px 0 25px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    @media (max-width: 720px) {
+      .shell { padding: 0 20px; }
+      .header-inner { min-height: 72px; }
+      .brand { font-size: .74rem; gap: 8px; }
+      .brand img { width: 42px; height: 42px; }
+      .top-tag { font-size: .68rem; padding: 8px; }
+      .cards { grid-template-columns: 1fr; }
+      .card { min-height: 290px; padding: 22px; }
+      .section-head span { display: none; }
+      .lede { margin-bottom: 36px; }
+      main { padding-bottom: 70px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition-duration: 0s !important; animation-duration: 0s !important; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="shell header-inner">
+      <a class="brand" href="./" aria-label="Adamus Systems Startseite">
+        <img src="assets/logo.png" alt="" width="48" height="48">
+        <span>ADAMUS SYSTEMS</span>
+      </a>
+      <span class="top-tag">APPLICATION PLATFORM</span>
+    </div>
+  </header>
+  <main class="shell">
+    <div class="eyebrow">Platform</div>
+    <h1>Deine Anwendungen.<br><span>Ein zentraler Zugang.</span></h1>
+    <p class="lede">Anwendungen herunterladen und auf die verfügbaren Module zugreifen. Neue Versionen von SFVP werden automatisch über GitHub Releases bereitgestellt.</p>
+    <div class="section-head"><h2>Anwendungen</h2><span>Adamus Systems / SFVP</span></div>
+    <div class="cards">
+      <section class="card primary" aria-labelledby="desktop-title">
+        <div class="card-header">
+          <div class="iconbox" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+          <span class="pill">Verfügbar</span>
+        </div>
+        <h3 id="desktop-title">SFVP Desktop</h3>
+        <p>Lagerplatz- und Auftragsverwaltung als portable Windows-Anwendung.</p>
+        <div class="grow"></div>
+        <div class="meta" id="release-meta" role="status" aria-live="polite">Suche nach der aktuellen Version …</div>
+        <a id="download-button" class="button" href="https://github.com/adamustill/sfvp-update-test/releases" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M4 17v3h16v-3"/></svg>
+          <span id="download-label">GitHub Releases öffnen</span>
+        </a>
+        <a class="underlink" id="release-details" href="https://github.com/adamustill/sfvp-update-test/releases" rel="noopener noreferrer">Alle Versionen auf GitHub ansehen ↗</a>
+      </section>
+      <section class="card" aria-labelledby="mobile-title">
+        <div class="card-header">
+          <div class="iconbox" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg></div>
+          <span class="pill soon">In Vorbereitung</span>
+        </div>
+        <h3 id="mobile-title">SFVP Mobile</h3>
+        <p>Zukünftiger Mitarbeiterzugang mit persönlichen Aufträgen, Lagerplätzen und Fortschrittsmeldungen.</p>
+        <div class="grow"></div>
+        <div class="meta">Login und Live-Synchronisierung folgen später.</div>
+        <span class="button disabled" aria-disabled="true">Noch nicht verfügbar</span>
+      </section>
+    </div>
+    <p class="bottom-note">Der Download führt zu einem öffentlichen GitHub Release. Diese Website erfasst keine Auftrags- oder Mitarbeiterdaten und bietet derzeit keine Anmeldung.</p>
+  </main>
+  <footer><div class="shell footer-inner"><span>© <span id="year"></span> Adamus Systems</span><span>APPLICATION PLATFORM · SFVP</span></div></footer>
+  <script>
+    'use strict';
+    // Nur öffentliche Release-Metadaten abrufen. Keine Zugangsschlüssel im Browser hinterlegen.
+    const RELEASES = 'https://github.com/adamustill/sfvp-update-test/releases';
+    const ENDPOINT = 'https://api.github.com/repos/adamustill/sfvp-update-test/releases/latest';
+    const meta = document.getElementById('release-meta');
+    const button = document.getElementById('download-button');
+    const label = document.getElementById('download-label');
+    const details = document.getElementById('release-details');
+    document.getElementById('year').textContent = String(new Date().getFullYear());
+
+    function fallback(message) {
+      meta.textContent = message;
+      button.href = RELEASES;
+      label.textContent = 'GitHub Releases öffnen';
+    }
+
+    async function loadLatestRelease() {
+      try {
+        const response = await fetch(ENDPOINT, {
+          headers: { 'Accept': 'application/vnd.github+json' }
+        });
+        if (!response.ok) throw new Error('GitHub API ' + response.status);
+        const release = await response.json();
+        if (!release || !Array.isArray(release.assets)) throw new Error('Ungültige Release-Daten');
+
+        const exeFiles = release.assets.filter(asset =>
+          typeof asset.name === 'string' &&
+          /\.exe$/i.test(asset.name) &&
+          typeof asset.browser_download_url === 'string' &&
+          asset.browser_download_url.startsWith('https://github.com/adamustill/sfvp-update-test/releases/download/')
+        );
+        const portableFiles = exeFiles.filter(asset => /portable/i.test(asset.name));
+        // Bei mehreren EXEs ohne eindeutige Portable-Zuordnung nichts raten.
+        const selected = portableFiles.length === 1 ? portableFiles[0] :
+          (exeFiles.length === 1 ? exeFiles[0] : null);
+
+        const version = release.tag_name ? String(release.tag_name) : 'Aktuelles Release';
+        const date = release.published_at ? new Date(release.published_at) : null;
+        const dateLabel = date && !Number.isNaN(date.valueOf()) ?
+          ' · ' + new Intl.DateTimeFormat('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' }).format(date) : '';
+        const releaseUrl = typeof release.html_url === 'string' &&
+          release.html_url.startsWith('https://github.com/adamustill/sfvp-update-test/releases/') ?
+          release.html_url : RELEASES;
+        details.href = releaseUrl;
+
+        if (!selected) {
+          fallback('Version ' + version + dateLabel + ' · Download auf GitHub auswählen');
+          return;
+        }
+        const sizeLabel = Number.isFinite(selected.size) && selected.size > 0 ?
+          ' · ' + (selected.size / 1048576).toLocaleString('de-DE', { maximumFractionDigits: 1 }) + ' MB' : '';
+        meta.textContent = 'Version ' + version + dateLabel + sizeLabel;
+        button.href = selected.browser_download_url;
+        button.setAttribute('aria-label', selected.name + ' herunterladen');
+        label.textContent = 'SFVP Portable herunterladen';
+      } catch (_error) {
+        fallback('Version gerade nicht abrufbar · Download über GitHub verfügbar');
+      }
+    }
+    loadLatestRelease();
+  </script>
+</body>
+</html>
