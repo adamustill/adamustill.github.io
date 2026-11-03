@@ -1,3 +1,22 @@
+// Dynamic viewport units handle browser chrome. Limit the shell further when a
+// mobile keyboard overlays the layout viewport, while leaving pinch zoom free.
+if (window.visualViewport) {
+  const syncVisibleHeight = () => {
+    const viewport = window.visualViewport;
+    if (viewport.scale === 1) {
+      document.documentElement.style.setProperty(
+        "--visible-height",
+        `${Math.min(innerHeight, viewport.height)}px`,
+      );
+    } else {
+      document.documentElement.style.removeProperty("--visible-height");
+    }
+  };
+  window.visualViewport.addEventListener("resize", syncVisibleHeight);
+  window.addEventListener("resize", syncVisibleHeight);
+  syncVisibleHeight();
+}
+
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
 
 document.querySelectorAll(".card").forEach((card, index) => {
