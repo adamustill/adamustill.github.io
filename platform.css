@@ -25,7 +25,34 @@ body {
   margin: 0;
   line-height: 1.4;
 }
+/* One entrance per document load. Backwards fill hides delayed elements only
+   before they start; completed effects release transform/opacity completely. */
+@keyframes adtlaz-enter {
+  from {
+    opacity: 0;
+    transform: translateY(var(--entrance-rise, 16px));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes adtlaz-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.backdrop,
+header,
+.hero-logo,
+.hero h1,
+.hero-subtitle,
+.card,
+.foot {
+  animation: adtlaz-enter var(--entrance-duration, 1050ms)
+    cubic-bezier(0.16, 1, 0.3, 1) var(--entrance-delay, 0ms) backwards;
+}
 .backdrop {
+  --entrance-duration: 1275ms;
   position: fixed;
   inset: 0;
   z-index: -1;
@@ -37,6 +64,9 @@ body {
 }
 
 header {
+  --entrance-delay: 150ms;
+  --entrance-duration: 825ms;
+  --entrance-rise: 12px;
   overflow: hidden;
   height: calc(73.8px + env(safe-area-inset-top, 0px));
   padding-top: env(safe-area-inset-top, 0px);
@@ -121,6 +151,8 @@ button:disabled {
   padding-inline: env(safe-area-inset-left, 0px) env(safe-area-inset-right, 0px);
 }
 main {
+  position: relative;
+  top: 7%;
   margin-inline: auto;
   width: min(77.3%, 1440px);
   padding: 95px 0 48px;
@@ -130,12 +162,15 @@ main {
   margin-bottom: 44px;
 }
 .hero-logo {
+  --entrance-delay: 270ms;
   width: 180px;
   height: 149px;
   display: block;
   margin: auto;
 }
 h1 {
+  --entrance-delay: 390ms;
+  --entrance-duration: 975ms;
   margin: 13px 0 0;
   font-size: 48px;
   line-height: 1.15;
@@ -144,6 +179,9 @@ h1 {
   text-indent: 0.395em;
 }
 .hero-subtitle {
+  --entrance-delay: 495ms;
+  --entrance-duration: 900ms;
+  --entrance-rise: 12px;
   margin: 11px 0 0;
   display: flex;
   justify-content: center;
@@ -174,6 +212,8 @@ h1 {
   gap: 2.85%;
 }
 .card {
+  --entrance-delay: 630ms;
+  --entrance-rise: 18px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -332,6 +372,8 @@ h1 {
   flex: 1;
 }
 .release-info {
+  position: relative;
+  min-height: 22px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -340,6 +382,18 @@ h1 {
   font-size: 18px;
   margin: 0 0 22px;
   padding: 0 6% 0 10px;
+}
+.release-placeholder {
+  visibility: hidden;
+}
+.release-loading {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+}
+.release-placeholder-icon {
+  display: inline-block;
+  flex: none;
 }
 .release-info span {
   display: inline-flex;
@@ -351,6 +405,7 @@ h1 {
   padding-left: 7%;
 }
 .release-info svg,
+.release-placeholder-icon,
 .underlink svg {
   width: 22px;
   height: 22px;
@@ -401,6 +456,7 @@ h1 {
   text-decoration: underline;
 }
 .card.mobile {
+  --entrance-delay: 765ms;
   padding-left: 7.4%;
 }
 .mobile .button {
@@ -419,6 +475,9 @@ h1 {
   color: #dce9f3;
 }
 .foot {
+  --entrance-delay: 900ms;
+  --entrance-duration: 750ms;
+  animation-name: adtlaz-fade;
   position: relative;
   margin: 0 max(3.6%, env(safe-area-inset-right, 0px)) 0
     max(3.6%, env(safe-area-inset-left, 0px));
@@ -678,7 +737,8 @@ a:focus-visible {
   .release-info span + span {
     padding-left: 8px;
   }
-  .release-info svg {
+  .release-info svg,
+  .release-placeholder-icon {
     width: 15px;
   }
   .button,
@@ -701,6 +761,15 @@ a:focus-visible {
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .backdrop,
+  header,
+  .hero-logo,
+  .hero h1,
+  .hero-subtitle,
+  .card,
+  .foot {
+    animation: none;
+  }
   .button,
   .card-shine {
     transition: none;

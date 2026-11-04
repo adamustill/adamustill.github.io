@@ -7,6 +7,8 @@
   <meta name="description" content="Adamus Systems – Plattformzugang und ADTLAZ Downloads.">
   <title>Adamus Systems | ADTLAZ</title>
   <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="preload" as="image" href="assets/horizont.webp">
+  <link rel="preload" as="image" href="assets/signet.png">
   <link rel="stylesheet" href="platform.css">
 </head>
 <body>
@@ -47,7 +49,14 @@
         </div>
         <p class="description">Zentrale Anwendung für die Planung, Verwaltung und Steuerung von Aufträgen und Lagerflächen.</p>
         <div class="grow"></div>
-        <div class="release-info" id="release-meta" role="status" aria-live="polite"><span>Aktuelle Version wird geladen …</span></div>
+        <div class="release-info" id="release-meta" role="status" aria-live="polite">
+          <!-- Invisible format samples reserve the existing one/two-row layout.
+               The release loader replaces them; no example values are shown. -->
+          <span class="release-placeholder" aria-hidden="true"><i class="release-placeholder-icon"></i>v0.0.0-c.00</span>
+          <span class="release-placeholder" aria-hidden="true"><i class="release-placeholder-icon"></i>00.00.0000</span>
+          <span class="release-placeholder" aria-hidden="true"><i class="release-placeholder-icon"></i>00,0 MB</span>
+          <p class="release-loading">Aktuelle Version wird geladen …</p>
+        </div>
         <a id="download-button" class="button" href="https://github.com/adamustill/sfvp-update-test/releases" rel="noopener noreferrer">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M4 17v3h16v-3"/></svg>
           <span id="download-label">GitHub Releases öffnen</span>
